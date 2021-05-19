@@ -19,7 +19,7 @@ $ pip3 install numpy opencv-python ffmpeg-python wand pexecute pydub colorama
 ## Как использовать?
 
 ```bash
-$ git clone https://github.com/m4xx1m/VideoDistortion
+$ git clone https://github.com/D4n13l3k00/VideoDistortion
 $ cd VideoDistortion
 $ python3 main.py -h
 ```
