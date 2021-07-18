@@ -64,7 +64,7 @@ def main(args):
     print(Fore.BLUE + "[Worker] Distorting fraps via imagemagick...")
     loom = ThreadLoom(max_runner_cap=args.t)
     for i in range(frames_total):
-        loom.add_function(distort, [f"work/in/{i}.png", f"work/out/{str(i).zfill(8)}.png", i])
+        loom.add_function(distort, [f"work/in/{str(i+1).zfill(8)}.png", f"work/out/{str(i).zfill(8)}.png", i])
     loom.execute()
     print(Fore.BLUE + "[Worker] Exporting audio via ffmpeg...")
     a = pydub.AudioSegment.from_file(args.i)
