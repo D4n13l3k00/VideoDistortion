@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 import time
 from argparse import ArgumentParser
 
@@ -40,7 +41,7 @@ def main(args):
     i = args.i
     if not os.path.isfile(i):
         print(Fore.RED + "[Main] Video not found!")
-        exit(1)
+        sys.exit(1)
     v = cv2.VideoCapture(i)
     fps = v.get(cv2.CAP_PROP_FPS)
     frames_total = int(v.get(cv2.CAP_PROP_FRAME_COUNT))
