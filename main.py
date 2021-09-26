@@ -11,6 +11,8 @@ from pexecute.thread import ThreadLoom
 from wand.image import Image
 
 init(True)
+
+
 def cache():
     dirs_ = [
         "work",
@@ -25,7 +27,8 @@ def cache():
         else:
             print(Fore.GREEN + f"[Cache] Creating dir '{i}'")
             os.mkdir(i)
-    
+
+
 def distort(inp: str, out: str, frap: int):
     img = Image(filename=inp)
     x, y = img.size[0], img.size[1]
@@ -34,6 +37,7 @@ def distort(inp: str, out: str, frap: int):
     img.liquid_rescale(popx, popy, delta_x=1, rigidity=0)
     img.resize(x, y)
     img.save(filename=out)
+
 
 def main(args):
     cache()
@@ -53,18 +57,21 @@ def main(args):
     print(Fore.CYAN + f"[Video info] Bitrate: {bitrate}")
     print(Fore.BLUE + "[Worker] Starting process...")
     start_time = time.time()
-    print(Fore.BLUE + "[Worker] Decomposing the video into frames via opencv...")
+    print(Fore.BLUE +
+          "[Worker] Decomposing the video into frames via opencv...")
     f = 1
     while True:
         if v.grab():
             _, frame = v.retrieve()
             cv2.imwrite(f"work/in/{str(f).zfill(8)}.png", frame)
             f += 1
-        else: break
+        else:
+            break
     print(Fore.BLUE + "[Worker] Distorting fraps via imagemagick...")
     loom = ThreadLoom(max_runner_cap=args.t)
     for i in range(frames_total):
-        loom.add_function(distort, [f"work/in/{str(i+1).zfill(8)}.png", f"work/out/{str(i).zfill(8)}.png", i])
+        loom.add_function(distort, [
+                          f"work/in/{str(i+1).zfill(8)}.png", f"work/out/{str(i).zfill(8)}.png", i])
     loom.execute()
     print(Fore.BLUE + "[Worker] Exporting audio via ffmpeg...")
     a = pydub.AudioSegment.from_file(args.i)
@@ -91,15 +98,15 @@ def main(args):
     end = time.time()-start_time
     total_time = time.strftime('%Mm:%Ss', time.gmtime(end))
     print(Fore.GREEN + f"[Finish] Distorted successful! Time: {total_time}")
-        
-    
+
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('-i', type=str, required=True,  help='Input videopath/file')
-    parser.add_argument('-t', type=int, required=False, help='Threads [default 5]', default=5)
-    parser.add_argument('-o', type=str, required=False, help='Output filepath/name', default="out.mp4")
+    parser.add_argument('-i', type=str, required=True,
+                        help='Input videopath/file')
+    parser.add_argument('-t', type=int, required=False,
+                        help='Threads [default 5]', default=5)
+    parser.add_argument('-o', type=str, required=False,
+                        help='Output filepath/name', default="out.mp4")
     args = parser.parse_args()
     main(args)
-    
-    
