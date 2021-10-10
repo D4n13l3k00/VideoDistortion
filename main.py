@@ -30,7 +30,7 @@ def cache():
             os.mkdir(i)
 
 
-def distort(inp: str, out: str, frap: int):
+def distort(inp: str, out: str):
     img = Image(filename=inp)
     x, y = img.size[0], img.size[1]
     popx = int(50*(x//100))
