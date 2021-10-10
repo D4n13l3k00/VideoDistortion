@@ -12,8 +12,8 @@
 
 ## Зависимости 
 ```bash
-$ sudo apt install -y ffmpeg python3 python3-ip python3-setuptools python3-numpy python3-opencv imagemagick
-$ pip3 install numpy opencv-python ffmpeg-python wand pexecute pydub colorama
+$ sudo apt install -y ffmpeg python3 python3-pip python3-setuptools python3-numpy python3-opencv imagemagick
+$ pip3 install numpy opencv-python ffmpeg-python wand parallel-execute pydub colorama
 ```
 
 ## Как использовать?
